@@ -20,8 +20,8 @@
             <div class="header-content">
                 <a href="/github/projects/mc-coding-quiz/leaderboard.html">Leaderboard</a>
                 <!-- TODO shorten link -->
-                <span>
-                    Timer
+                <span id="timer">
+                    Time remaining: 75 s
                 </span>
             </div>
         </header>
@@ -29,15 +29,15 @@
         <!-- Main Content -->
         <main>
             <section class="top">
-                    <h1>Question or start view</h1><!-- For question -->
-                    <p>Instructions here</p>
+                    <h1 id="question">Question or start view</h1><!-- For question -->
+                    <p id="instructions">Instructions here</p>
                 <button>
                     Start <!-- dissapears on click -->
                 </button>
             </section>
             <section class="middle">
                 <!-- For answers -->
-                <ol>
+                <ol id="answers">
                     <li>Answer 1</li>
                     <li>Answer 2</li>
                     <li>Answer 3</li>
@@ -45,7 +45,7 @@
                 </ol>
             </section>
             <section class="bottom">
-                <h2>Results - Wrong or Right</h2><!-- For results -->
+                <h2 id="result">Results - Wrong or Right</h2><!-- For results -->
             </section>
         </main>
 
