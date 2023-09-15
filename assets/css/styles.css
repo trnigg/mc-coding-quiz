@@ -1,0 +1,173 @@
+/* Root Styles */
+:root {
+    --main-colour: #f9f9f9; /* Cool Off-White */
+    --secondary-colour: #292C33; /* Dark Anthracite */
+    --accent-colour: #c4a747; /* Metallic Gold Desaturated*/
+
+}
+
+/* General Font Styles */
+
+body {
+    font-size: 1.8rem; /*After reset = 18px - slightly larger to accomodate lighter font */
+    font-family: "Nunito","Bahnschrift", "Geneva", sans-serif;
+    background-color: var(--main-colour);
+    min-height: 100vh;
+}
+
+h1, h2 {   /* need to fix vertical alignment of h1 */
+    margin: 2.4rem 0;
+  /* font-weight: 500; */
+    line-height: 1.1rem;
+    font-weight: lighter;
+    color: var(--secondary-colour);
+}
+
+h1 {
+    font-size: 3.2rem;
+}
+
+h2 {
+    font-size: 2.4rem;
+}
+
+p {
+    margin: 1.6rem 0;
+}
+
+/* Top Banner */
+header {
+    background-color: var(--secondary-colour);
+    color: var(--main-colour);
+}
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.6rem;
+    max-width: 96rem;
+    margin: 0 auto;
+}
+
+header a {
+    border-bottom: 0.2rem solid var(--accent-colour);
+}
+
+header a:hover {
+    color: var(--accent-colour);
+}
+
+/* General Sections */
+main {
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    max-width: 96rem;
+    padding: 1.6rem;
+    /* border: solid .3rem; For layout visualisation */
+}
+
+section {
+    width: 100%;
+    margin: 0 auto 1.6rem;
+    /* border: solid .3rem; For layout visualisation */
+}
+
+
+/* Top-Third Section */
+.top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* TODO prettify button if time */
+button {
+    width: 25%;
+    padding: 0.8rem;
+}
+
+button:hover {
+    border-color: var(--accent-colour);
+    color: var(--accent-colour);
+    background-color: var(--secondary-colour);
+}
+
+/* Middle-Third Section */
+.middle {
+    /* display: flex;
+    flex-direction: row;
+    align-items: center; */
+}
+
+ol {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    /* border: solid .3rem; For layout visualisation */
+    width: 100%;
+}
+
+li {
+    width: calc(50% - 1.6rem); /* Set Width at 50% minus double (left & right) the margin */
+    border: solid .3rem; /* For layout visualisation */
+    padding: 0.8rem;
+    list-style: lower-alpha;
+    list-style-position: inside;
+    margin: 0.8rem;
+    text-align: center;
+    
+    /* TODO ifTime: Set margin only between list items - maybe use grid instead of flex */
+}
+
+/* Bottom-Third Section */
+.bottom {
+    border-top: solid 0.3rem var(--accent-colour);
+}
+
+h2 {
+    text-align: center;
+}
+
+
+
+/* Footer */
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: auto auto 0;
+    background-color: var(--secondary-colour);
+}
+
+footer p {
+    text-align: end;
+    padding: 0.8rem 1.6rem;
+    font-size: 1.6rem;
+    max-width: 96rem;
+    margin: 0 auto;
+    color: var(--main-colour);
+}
+
+.heart {
+    color: var(--accent-colour);
+    font-size: 1.6rem;
+    /* Animate this in the future */
+}
+
+/* Media Queries for smaller viewports - TODO: check breakpoint size */
+
+@media screen and (max-width: 480px) { 
+    li {
+        width: 100%;
+        margin: 0.8rem 0;
+    }
+    button {
+        width: 50%;
+    }
+}
