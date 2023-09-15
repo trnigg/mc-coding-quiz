@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+html {
+    height: 100%;
+     /* 
+    62.5% of 16 px = 10 px, making 1rem = 10px for ease of calculation in use-cases. 
+    NEED TO CHECK if this applies in the future, or if i need to work this into my stylesheet (or even :root) rather than here in my reset.
+    */
+    font-size: 62.5%;
+}
+  
+body {
+    min-height: 100%;
+    line-height: 1.5;
+    font-family: sans-serif;
+}
+  
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+}
+
+input, select, option, optgroup, textarea, button,
+pre, code {
+    font-size: 100%;
+    font-family: inherit;
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+ol, ul, menu, form {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
