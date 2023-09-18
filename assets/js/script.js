@@ -63,9 +63,45 @@ console.log(questions);
 let questionsIndex = 0;
 let timeLeft = 75; //TODO: Increase to 75 once confirmed its printing to head
 
+// Gets question according to current index and writes to H1 element
 function displayQuestion() {
     let currentQuestion = questions[questionsIndex];
+    questionElement.textContent = currentQuestion.question;
 }
+
+//  Gets answers according to current index and using loop for each creates a list item under <ol>
+displayQuestion();
+
+// TODO Finish:
+function displayAnswers() {
+    let currentAnswers = questions[questionsIndex].answers;
+    for (let i = 0; i < currentAnswers.length; i++) {
+        let answerChoices = currentAnswers[i];
+        let answerListItem = document.createElement("li");
+        answerListItem.textContent = answerChoices;
+        answersElement.appendChild(answerListItem);
+    }
+
+
+    //         for (let i = 0; i < answerChoices.length; i++) {
+    //         const choice = answerChoices[i];
+    //         const listItem = document.createElement("li");
+    //         listItem.textContent = choice;
+    //         answerChoicesList.appendChild(listItem);
+    // }
+}
+
+
+
+
+displayAnswers();
+
+function displayTimeLeft() {
+    timerElement.textContent = ("Time remaining: " + timeLeft + " s");
+}
+
+displayTimeLeft();
+
 // On page load
     // get scores for leaderboard.html from localStorage
     // Display Start Message / Instructions
