@@ -18,7 +18,7 @@ body {
 h1, h2 {   /* need to fix vertical alignment of h1 */
     margin: 2.4rem 0;
   /* font-weight: 500; */
-    line-height: 1.1rem;
+    line-height: 1.1;
     font-weight: lighter;
     color: var(--secondary-colour);
 }
@@ -84,16 +84,21 @@ section {
     align-items: center;
 }
 
+
 /* TODO prettify button if time */
 button {
     width: 25%;
     padding: 0.8rem;
+    border: 0.2rem solid var(--accent-colour);
+    border-radius: 1.6rem;
+    margin: 2.4rem 0;
 }
 
 button:hover {
     border-color: var(--accent-colour);
     color: var(--accent-colour);
     background-color: var(--secondary-colour);
+    cursor: pointer;
 }
 
 ol {
@@ -107,14 +112,28 @@ ol {
 
 li {
     width: calc(50% - 1.6rem); /* Set Width at 50% minus double (left & right) the margin */
-    border: solid .3rem; /* For layout visualisation */
+    border: 0.2rem solid var(--accent-colour); /* For layout visualisation */
     padding: 0.8rem;
     list-style: lower-alpha;
     list-style-position: inside;
     margin: 0.8rem;
     text-align: center;
+    border-radius: 1.6rem;
     
     /* TODO ifTime: Set margin only between list items - maybe use grid instead of flex */
+}
+
+li:hover {
+    border-color: var(--accent-colour);
+    color: var(--accent-colour);
+    background-color: var(--secondary-colour);
+    cursor: pointer;
+}
+
+li:active {
+    border-color: var(--secondary-colour);
+    color: var(--secondary-colour);
+    background-color: var(--main-colour);
 }
 
 /* Bottom-Third Section */
