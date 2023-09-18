@@ -20,8 +20,8 @@
             <div class="header-content">
                 <a href="/github/projects/mc-coding-quiz/leaderboard.html">Leaderboard</a>
                 <!-- TODO shorten link -->
-                <span>
-                    Timer
+                <span id="timer">
+                    <!-- Time remaining: 75 s -->
                 </span>
             </div>
         </header>
@@ -29,23 +29,23 @@
         <!-- Main Content -->
         <main>
             <section class="top">
-                    <h1>Question or start view</h1><!-- For question -->
-                    <p>Instructions here</p>
-                <button>
+                    <h1 id="question">Welcome to quiz!</h1><!-- For question -->
+                    <p id="instructions">There are five coding related questions to answer in 75 seconds. Get a question right; move onto the next question - but get one wrong and 15 s will be deducted! Your score will be determined by how many seconds (if any!) are left on the timer upon completion.</p>
+                <button id="start-button">
                     Start <!-- dissapears on click -->
                 </button>
             </section>
             <section class="middle">
                 <!-- For answers -->
-                <ol>
-                    <li>Answer 1</li>
+                <ol id="answers">
+                    <!-- <li>Answer 1</li>
                     <li>Answer 2</li>
                     <li>Answer 3</li>
-                    <li>Answer 4</li>
+                    <li>Answer 4</li> -->
                 </ol>
             </section>
             <section class="bottom">
-                <h2>Results - Wrong or Right</h2><!-- For results -->
+                <h2 id="result">Results - Wrong or Right</h2><!-- For results -->
             </section>
         </main>
 
