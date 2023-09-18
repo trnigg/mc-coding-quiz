@@ -96,13 +96,6 @@ button:hover {
     background-color: var(--secondary-colour);
 }
 
-/* Middle-Third Section */
-.middle {
-    /* display: flex;
-    flex-direction: row;
-    align-items: center; */
-}
-
 ol {
     display: flex;
     flex-direction: row;

@@ -5,12 +5,14 @@ const questionElement = document.getElementById("question");
 const instructionsElement = document.getElementById("instructions");
 const answersElement = document.getElementById("answers");
 const resultElement = document.getElementById("result");
+const startButton = document.getElementById("start-button");
 
 console.log(timerElement.textContent);
 console.log(questionElement.textContent);
 console.log(instructionsElement.textContent);
 console.log(answersElement.textContent);
 console.log(resultElement.textContent);
+console.log(startButton.textContent);
 
 
 
@@ -70,7 +72,7 @@ function displayQuestion() {
 }
 
 //  Gets answers according to current index and using loop for each creates a list item under <ol>
-displayQuestion();
+
 
 // TODO Finish:
 function displayAnswers() {
@@ -80,27 +82,51 @@ function displayAnswers() {
         let answerListItem = document.createElement("li");
         answerListItem.textContent = answerChoices;
         answersElement.appendChild(answerListItem);
+        answerListItem.addEventListener("click", handleUserChoice);
     }
-
-
-    //         for (let i = 0; i < answerChoices.length; i++) {
-    //         const choice = answerChoices[i];
-    //         const listItem = document.createElement("li");
-    //         listItem.textContent = choice;
-    //         answerChoicesList.appendChild(listItem);
-    // }
 }
 
-
-
-
-displayAnswers();
 
 function displayTimeLeft() {
     timerElement.textContent = ("Time remaining: " + timeLeft + " s");
 }
 
-displayTimeLeft();
+
+function startTimer() {
+    let timeInterval = setInterval(function() {
+        // if time left > 0:
+        timeLeft--;
+        displayTimeLeft();
+        // else stop interval, end timer and quiz --> end screen
+    }, 1000);
+}
+
+function startQuiz(){
+    displayTimeLeft(); // need to both display and startTimer or will only display from 74s
+    startTimer();
+    displayQuestion();
+    displayAnswers();
+    startButton.style.display = "none";
+    instructionsElement.style.display = "none";
+}
+
+// Listen for a click event on start
+startButton.addEventListener("click", function() {
+    startQuiz();
+
+});
+
+function handleUserChoice(event) {
+    let userChoice = event.target.textContent;
+    console.log(userChoice);
+    evalAnswer();
+}
+
+function evalAnswer() { //need to disable further clicks
+//     let answerListItem = document.querySelectorAll("li");
+//     answerListItem.removeEventListener("click", handleUserChoice);
+
+}
 
 // On page load
     // get scores for leaderboard.html from localStorage
@@ -156,6 +182,4 @@ displayTimeLeft();
 
 
 
-    
-    
     
