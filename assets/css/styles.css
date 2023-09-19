@@ -16,7 +16,7 @@ body {
 }
 
 h1, h2 {   /* need to fix vertical alignment of h1 */
-    margin: 2.4rem 0;
+    
   /* font-weight: 500; */
     line-height: 1.1;
     font-weight: lighter;
@@ -25,10 +25,13 @@ h1, h2 {   /* need to fix vertical alignment of h1 */
 
 h1 {
     font-size: 3.2rem;
+    margin: 3.2rem 0;
 }
 
 h2 {
     font-size: 2.4rem;
+    margin: 2.4rem 0;
+    text-align: center;
 }
 
 p {
@@ -78,16 +81,16 @@ section {
 
 
 /* Top-Third Section */
-.top {
+.top, .bottom {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 
-/* TODO prettify button if time */
+/* TODO ifTime: prettify buttons */
 button {
-    width: 25%;
+    width: 33%;
     padding: 0.8rem;
     border: 0.2rem solid var(--accent-colour);
     border-radius: 1.6rem;
@@ -106,13 +109,12 @@ ol {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    /* border: solid .3rem; For layout visualisation */
     width: 100%;
 }
 
 li {
     width: calc(50% - 1.6rem); /* Set Width at 50% minus double (left & right) the margin */
-    border: 0.2rem solid var(--accent-colour); /* For layout visualisation */
+    border: 0.2rem solid var(--accent-colour);
     padding: 0.8rem;
     list-style: lower-alpha;
     list-style-position: inside;
@@ -121,6 +123,7 @@ li {
     border-radius: 1.6rem;
     
     /* TODO ifTime: Set margin only between list items - maybe use grid instead of flex */
+    /* TODO ifTime: style background colour same as buttons */
 }
 
 li:hover {
@@ -136,16 +139,26 @@ li:active {
     background-color: var(--main-colour);
 }
 
-/* Bottom-Third Section */
-.bottom {
-    border-top: solid 0.3rem var(--accent-colour);
+#submit-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
-h2 {
-    text-align: center;
+form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
-
+input {
+    width: 33%;
+    padding: 0.8rem;
+    border: 0.2rem solid var(--accent-colour);
+    border-radius: 1.6rem;
+}
 
 /* Footer */
 
@@ -179,7 +192,7 @@ footer p {
         width: 100%;
         margin: 0.8rem 0;
     }
-    button {
+    button, input {
         width: 50%;
     }
 }
