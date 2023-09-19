@@ -6,6 +6,10 @@ const instructionsElement = document.getElementById("instructions");
 const answersElement = document.getElementById("answers");
 const resultElement = document.getElementById("result");
 const startButton = document.getElementById("start-button");
+const submitScoreElement = document.getElementById("submit-score");
+const yourScoreElement = document.getElementById("your-score");
+const submitButton = document.getElementById("submit-button");
+const initialsInput = document.getElementById("initials");
 
 console.log(timerElement.textContent);
 console.log(questionElement.textContent);
@@ -45,19 +49,17 @@ const questions = [
     },
 ];
 
-console.log(questions);
-
 let questionsIndex = 0;
 let timeLeft = 75; 
 let timeInterval;
 let userChoice;
+let userScore;
+
 
 // On page load
     // get scores for leaderboard.html from localStorage
-    // Display Start Message / Instructions
-    // Diplay Start Button
 
-
+submitScoreElement.style.display = "none";
 
 function displayTimeLeft() {
     if (timeLeft > 0) {
@@ -67,7 +69,6 @@ function displayTimeLeft() {
     }
     
 }
-
 
 function startTimer() {
     timeInterval = setInterval(function() {
@@ -81,17 +82,12 @@ function startTimer() {
     }, 1000);
 } //not sure if the nesting is right here. Also need to skype last question when near end.
 
-
 // Gets question according to current index and writes to H1 element
 function displayQuestion() {
     let currentQuestion = questions[questionsIndex];
     questionElement.textContent = currentQuestion.question;
 }
 
-//  Gets answers according to current index and using loop for each creates a list item under <ol>
-
-
-// TODO Finish:
 function displayAnswers() {
     answersElement.innerHTML = "";
     let currentAnswers = questions[questionsIndex].answers;
@@ -125,9 +121,6 @@ function handleUserChoice(event) {
     for (let i = 0; i < answerListItem.length; i++) {
         answerListItem[i].removeEventListener("click", handleUserChoice);
     }
-    console.log(answerListItem);
-    console.log(userChoice);
-    console.log(questions[questionsIndex].correctAnswer);
     clearInterval(timeInterval);
 
     // checkAnswer();
@@ -141,11 +134,6 @@ function handleUserChoice(event) {
         timeLeft = timeLeft - 15;
         displayTimeLeft();
     }
-
-
-
-
-
     setTimeout(resumeQuiz, 2000);
 }
 
@@ -162,36 +150,35 @@ function resumeQuiz(){
 }
 
 function endQuiz(){
+    questionElement.textContent = "You've reached the end of the quiz!";
+    yourScoreElement.textContent = timeLeft;
     answersElement.innerHTML = "";
-    questionElement.textContent = "You've reached the end of the quiz!"
-    instructionsElement.textContent = "Please enter your initials in the box below and click submit to post your score."
+    submitScoreElement.style.display = "";
+    instructionsElement.textContent = "Please enter your initials in the box below and click submit to post your score.";
 }
 
-            // End quiz when timer reaches 0
-        // Show question
-        // Show answers
+function saveScore(){
+    userScore = {
+        initials: initialsInput.value.trim(),
+        score: timeLeft,
+    };
+    console.log(userScore);
+    localStorage.setItem('userScore', JSON.stringify(userScore));
+}
 
-// On answer click
-    // (Button event listener)
-    // Event:
-        // record answer
-        // check result
-            // pause timer
-            // if wrong:
-                // reduce time by 15 seconds
-                // display "Wrong X" message
-                    // Set message to red
-            // if correct
-                // display Display "Correct [tick]" message
-                    // Set message to green
-        // load next question/answer set
+function showScores(){
+    userScore = JSON.parse(localStorage.getItem('userScore'));
+    console.log(userScore);
+}
 
-// Quiz end
-    // When timer reaches 0, or;
-    // When all questions are answered
-        // stop timer
-    // show name input
-    // show submit score button
+submitButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    saveScore();
+    showScores();
+  });
+
+
+ 
 
 // Submit score
     // on click (eventListener)
