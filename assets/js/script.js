@@ -14,36 +14,7 @@ console.log(answersElement.textContent);
 console.log(resultElement.textContent);
 console.log(startButton.textContent);
 
-
-
 // Declare Global Variables
-
-
-// Two methods for questions' array:
-/* Method 1 const questions array of objects with answers as array = [
-    {
-        question: "What is the capital of Switzerland?",
-        choices: ["Zurich", "Berlin", "Bern", "Vienna"],
-        correctAnswer: "Bern",
-    },
-];
-*/
-
-/* Method 2 const questions array of objects with answers as arrays of objects= [
-    {
-        question: "What is the capital of Switzerland?",
-        answers: [
-            {text: "Zurich", correct: false},
-            {text: "Berlin", correct: false},
-            {text: "Bern", correct: true},
-            {text: "Vienna", correct: false},
-        ],
-
-    },
-];
-*/
-// for now prefer method 1 - maybe checking functionwill be asier w method 2
-
 
 // TODO: Add more questions:
 const questions = [
@@ -57,13 +28,59 @@ const questions = [
         answers: ["var", "const", "def", "let"],
         correctAnswer: "def",
     },
-    // TODO: Add more questions:
+    {
+        question: "In CSS, which property is used to change the text color of an HTML element?",
+        answers: ["font-color", "text-color", "color", "font-style"],
+        correctAnswer: "color",
+    },
+    {
+        question: "Which JavaScript function is used to print something to the console?",
+        answers: ["console.log()", "print()", "console.print()", "output.log()"],
+        correctAnswer: "console.log()",
+    },
+    {
+        question: "Which HTML tag is used to create a hyperlink on a web page?",
+        answers: ["<link>", "<a>", "<href>", "<url>"],
+        correctAnswer: "<a>",
+    },
 ];
 
 console.log(questions);
 
 let questionsIndex = 0;
-let timeLeft = 75; //TODO: Increase to 75 once confirmed its printing to head
+let timeLeft = 75; 
+let timeInterval;
+let userChoice;
+
+// On page load
+    // get scores for leaderboard.html from localStorage
+    // Display Start Message / Instructions
+    // Diplay Start Button
+
+
+
+function displayTimeLeft() {
+    if (timeLeft > 0) {
+        timerElement.textContent = ("Time remaining: " + timeLeft + " s");
+    } else {
+        timerElement.textContent = "No time remaining!";
+    }
+    
+}
+
+
+function startTimer() {
+    timeInterval = setInterval(function() {
+        if (timeLeft > 0) {
+            // if time left > 0:
+            timeLeft--;
+            displayTimeLeft();
+        } else {
+            endQuiz(); 
+        }
+    }, 1000);
+} //not sure if the nesting is right here. Also need to skype last question when near end.
+
 
 // Gets question according to current index and writes to H1 element
 function displayQuestion() {
@@ -76,6 +93,7 @@ function displayQuestion() {
 
 // TODO Finish:
 function displayAnswers() {
+    answersElement.innerHTML = "";
     let currentAnswers = questions[questionsIndex].answers;
     for (let i = 0; i < currentAnswers.length; i++) {
         let answerChoices = currentAnswers[i];
@@ -86,28 +104,13 @@ function displayAnswers() {
     }
 }
 
-
-function displayTimeLeft() {
-    timerElement.textContent = ("Time remaining: " + timeLeft + " s");
-}
-
-
-function startTimer() {
-    let timeInterval = setInterval(function() {
-        // if time left > 0:
-        timeLeft--;
-        displayTimeLeft();
-        // else stop interval, end timer and quiz --> end screen
-    }, 1000);
-}
-
 function startQuiz(){
     displayTimeLeft(); // need to both display and startTimer or will only display from 74s
     startTimer();
     displayQuestion();
     displayAnswers();
     startButton.style.display = "none";
-    instructionsElement.style.display = "none";
+    instructionsElement.innerHTML = "";
 }
 
 // Listen for a click event on start
@@ -118,29 +121,52 @@ startButton.addEventListener("click", function() {
 
 function handleUserChoice(event) {
     let userChoice = event.target.textContent;
+    let answerListItem = document.querySelectorAll("li");
+    for (let i = 0; i < answerListItem.length; i++) {
+        answerListItem[i].removeEventListener("click", handleUserChoice);
+    }
+    console.log(answerListItem);
     console.log(userChoice);
-    evalAnswer();
+    console.log(questions[questionsIndex].correctAnswer);
+    clearInterval(timeInterval);
+
+    // checkAnswer();
+    resultElement.style.display = "";
+    if (userChoice === questions[questionsIndex].correctAnswer) {
+        resultElement.textContent = "Correct!";
+        resultElement.style.color = "green";
+    } else {
+        resultElement.textContent = "Wrong!";
+        resultElement.style.color = "red";
+        timeLeft = timeLeft - 15;
+        displayTimeLeft();
+    }
+
+
+
+
+
+    setTimeout(resumeQuiz, 2000);
 }
 
-function evalAnswer() { //need to disable further clicks
-//     let answerListItem = document.querySelectorAll("li");
-//     answerListItem.removeEventListener("click", handleUserChoice);
-
+function resumeQuiz(){
+    questionsIndex++;
+    resultElement.style.display = "none";
+    if (questionsIndex < questions.length && timeLeft > 0) { 
+        startTimer();
+        displayQuestion();
+        displayAnswers();
+    } else {
+        endQuiz();
+    }
 }
 
-// On page load
-    // get scores for leaderboard.html from localStorage
-    // Display Start Message / Instructions
-    // Diplay Start Button
+function endQuiz(){
+    answersElement.innerHTML = "";
+    questionElement.textContent = "You've reached the end of the quiz!"
+    instructionsElement.textContent = "Please enter your initials in the box below and click submit to post your score."
+}
 
-// On start button click
-    // (Button event listener)
-    // preventDefault
-    // Event:
-        // Hide start button:
-        // Start timer
-            // Set time = 75 seconds
-            // Reduce timer by 1 per 1000ms interval
             // End quiz when timer reaches 0
         // Show question
         // Show answers
@@ -180,6 +206,3 @@ function evalAnswer() { //need to disable further clicks
         // "Reset scores"
             // take to leaderboard.html on click clear scores
 
-
-
-    
