@@ -1,5 +1,4 @@
-// Declare Variables = Content Containers
-
+// Variables = Content Containers/Interactive Elements
 const timerElement = document.getElementById("timer");
 const questionElement = document.getElementById("question");
 const instructionsElement = document.getElementById("instructions");
@@ -11,16 +10,12 @@ const yourScoreElement = document.getElementById("your-score");
 const submitButton = document.getElementById("submit-button");
 const initialsInput = document.getElementById("initials");
 
-console.log(timerElement.textContent);
-console.log(questionElement.textContent);
-console.log(instructionsElement.textContent);
-console.log(answersElement.textContent);
-console.log(resultElement.textContent);
-console.log(startButton.textContent);
-
-// Declare Global Variables
-
-// TODO: Add more questions:
+// Global Variables
+const userScores = JSON.parse(localStorage.getItem('userScores')) || []; // Get existing scores or initialize an empty array (latter is required to 'push' scores)
+let questionsIndex = 0;
+let timeLeft = 75; // Change to decrease/increase time to complete quiz
+let timeInterval;
+let userChoice;
 const questions = [
     {
         question: "Which language is usually used for styling a webpage?",
@@ -49,27 +44,19 @@ const questions = [
     },
 ];
 
-let questionsIndex = 0;
-let timeLeft = 75; 
-let timeInterval;
-let userChoice;
-let userScore;
-
-
-// On page load
-    // get scores for leaderboard.html from localStorage
-
+// Hides contents and elements only required at end
 submitScoreElement.style.display = "none";
 
+// Renders the time left
 function displayTimeLeft() {
     if (timeLeft > 0) {
         timerElement.textContent = ("Time remaining: " + timeLeft + " s");
     } else {
         timerElement.textContent = "No time remaining!";
     }
-    
 }
 
+// Starts timer and reduces timeLeft by 1 every second
 function startTimer() {
     timeInterval = setInterval(function() {
         if (timeLeft > 0) {
@@ -80,16 +67,17 @@ function startTimer() {
             endQuiz(); 
         }
     }, 1000);
-} //not sure if the nesting is right here. Also need to skype last question when near end.
+}    
 
-// Gets question according to current index and writes to H1 element
+// Gets question according to current index and renders to H1 element
 function displayQuestion() {
     let currentQuestion = questions[questionsIndex];
     questionElement.textContent = currentQuestion.question;
 }
 
+// Gets answers according to current index and renders to an <ul> element
 function displayAnswers() {
-    answersElement.innerHTML = "";
+    answersElement.innerHTML = ""; //Clears list items already present
     let currentAnswers = questions[questionsIndex].answers;
     for (let i = 0; i < currentAnswers.length; i++) {
         let answerChoices = currentAnswers[i];
@@ -100,6 +88,7 @@ function displayAnswers() {
     }
 }
 
+// Triggers the timer and the rendering of questions and answers while hidding/removing the starter contents
 function startQuiz(){
     displayTimeLeft(); // need to both display and startTimer or will only display from 74s
     startTimer();
@@ -109,21 +98,20 @@ function startQuiz(){
     instructionsElement.innerHTML = "";
 }
 
-// Listen for a click event on start
+// Listen for a click event on start button to trigger the above
 startButton.addEventListener("click", function() {
     startQuiz();
 
 });
 
+// Handles user choice and assess for right/wrong, display corrensponding messages and incur time-penalty
 function handleUserChoice(event) {
-    let userChoice = event.target.textContent;
-    let answerListItem = document.querySelectorAll("li");
+    clearInterval(timeInterval); // stops timer
+    let userChoice = event.target.textContent; // records answer
+    let answerListItem = document.querySelectorAll("li"); // declares list items and removes the event listener
     for (let i = 0; i < answerListItem.length; i++) {
         answerListItem[i].removeEventListener("click", handleUserChoice);
     }
-    clearInterval(timeInterval);
-
-    // checkAnswer();
     resultElement.style.display = "";
     if (userChoice === questions[questionsIndex].correctAnswer) {
         resultElement.textContent = "Correct!";
@@ -131,10 +119,15 @@ function handleUserChoice(event) {
     } else {
         resultElement.textContent = "Wrong!";
         resultElement.style.color = "red";
-        timeLeft = timeLeft - 15;
+        // Nested IF prevents scores from falling into the negative when time is deducted for wrong answer
+        if (timeLeft < 15) {
+            timeLeft = 0;
+        } else {
+            timeLeft = timeLeft - 15;
+        }
         displayTimeLeft();
     }
-    setTimeout(resumeQuiz, 2000);
+    setTimeout(resumeQuiz, 2000); //resumes quiz after 2 seconds
 }
 
 function resumeQuiz(){
@@ -157,39 +150,25 @@ function endQuiz(){
     instructionsElement.textContent = "Please enter your initials in the box below and click submit to post your score.";
 }
 
+// if nput is empty, will display alert, otherwise records score as key.value to localStorage, navigates to leaderboard page
 function saveScore(){
-    userScore = {
-        initials: initialsInput.value.trim(),
-        score: timeLeft,
-    };
-    console.log(userScore);
-    localStorage.setItem('userScore', JSON.stringify(userScore));
+    if (initialsInput.value.trim() === ""){
+        alert("Please enter your initials.");
+        return;
+    } else {
+        let userScore = {
+            initials: initialsInput.value.trim().toUpperCase(),
+            score: timeLeft,
+            }; 
+    userScores.push(userScore)
+    console.log(userScores);
+    localStorage.setItem('userScores', JSON.stringify(userScores));
+    window.location.href = "/github/projects/mc-coding-quiz/leaderboard.html";
+    }
 }
 
-function showScores(){
-    userScore = JSON.parse(localStorage.getItem('userScore'));
-    console.log(userScore);
-}
-
+//triggers the saveScore function
 submitButton.addEventListener('click', function (event) {
     event.preventDefault();
     saveScore();
-    showScores();
   });
-
-
- 
-
-// Submit score
-    // on click (eventListener)
-    // set score into localStorage, using entered name as key
-    // go to leaderboard
-    
-
-// leaderboard    
-    // display 2 buttons:
-        // "Go back"
-            //on click event reset page
-        // "Reset scores"
-            // take to leaderboard.html on click clear scores
-
