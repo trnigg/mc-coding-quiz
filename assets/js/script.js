@@ -162,7 +162,7 @@ function saveScore(){
     userScores.push(userScore)
     console.log(userScores);
     localStorage.setItem('userScores', JSON.stringify(userScores));
-    window.location.href = "/github/projects/mc-coding-quiz/leaderboard.html";
+    window.location.href = "leaderboard.html";
     }
 }
 
