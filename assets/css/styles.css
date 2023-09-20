@@ -1,3 +1,5 @@
+/* Styling for both pages are here. Some additional styling for the leaderboard page are at the bottom */
+
 /* Root Styles */
 :root {
     --main-colour: #f9f9f9; /* Cool Off-White */
@@ -7,7 +9,6 @@
 }
 
 /* General Font Styles */
-
 body {
     font-size: 1.8rem; /*After reset = 18px - slightly larger to accomodate lighter font */
     font-family: "Nunito","Bahnschrift", "Geneva", sans-serif;
@@ -15,9 +16,7 @@ body {
     min-height: 100vh;
 }
 
-h1, h2 {   /* need to fix vertical alignment of h1 */
-    
-  /* font-weight: 500; */
+h1, h2 {
     line-height: 1.1;
     font-weight: lighter;
     color: var(--secondary-colour);
@@ -38,6 +37,7 @@ p {
     margin: 1.6rem 0;
 }
 
+/* Main Page (index.html) Styling */
 /* Top Banner */
 header {
     background-color: var(--secondary-colour);
@@ -80,7 +80,7 @@ section {
 }
 
 
-/* Top-Third Section */
+    /* Question and Feedback Containers */
 .top, .bottom {
     display: flex;
     flex-direction: column;
@@ -88,13 +88,13 @@ section {
 }
 
 
-/* TODO ifTime: prettify buttons */
+    /* TODO ifTime: prettify buttons */
 button {
     width: 33%;
     padding: 0.8rem;
     border: 0.2rem solid var(--accent-colour);
     border-radius: 1.6rem;
-    margin: 2.4rem 0;
+    margin-top: 2.4rem;
 }
 
 button:hover {
@@ -104,7 +104,8 @@ button:hover {
     cursor: pointer;
 }
 
-ol {
+    /* Container for JS quiz Answers */
+#answers {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -112,33 +113,33 @@ ol {
     width: 100%;
 }
 
-li {
+    /* List items that are populated with answer items by JS */
+#answers li {
     width: calc(50% - 1.6rem); /* Set Width at 50% minus double (left & right) the margin */
     border: 0.2rem solid var(--accent-colour);
     padding: 0.8rem;
-    list-style: lower-alpha;
     list-style-position: inside;
     margin: 0.8rem;
     text-align: center;
     border-radius: 1.6rem;
-    
     /* TODO ifTime: Set margin only between list items - maybe use grid instead of flex */
-    /* TODO ifTime: style background colour same as buttons */
+    /* TODO ifTime: style background colour of li same as button default */
 }
 
-li:hover {
+#answers li:hover {
     border-color: var(--accent-colour);
     color: var(--accent-colour);
     background-color: var(--secondary-colour);
     cursor: pointer;
 }
 
-li:active {
+#answers li:active {
     border-color: var(--secondary-colour);
     color: var(--secondary-colour);
     background-color: var(--main-colour);
 }
 
+    /* Submit score section and form to be displayed on quiz end */
 #submit-score {
     display: flex;
     flex-direction: column;
@@ -182,17 +183,53 @@ footer p {
 .heart {
     color: var(--accent-colour);
     font-size: 1.6rem;
-    /* Animate this in the future */
 }
+
+/* Additional styling for Leaderboard page */
+    /* Container for Leadboard buttons*/
+    #leaderboard-buttons{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        width: 100%;
+    }
+    /* Container for Leaderboard Scores */
+    #leaderboard-list {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+    }
+    
+        /* List items that are populated with answer items by JS */
+    #leaderboard-list li {
+        width: 66%; /* Set Width at 50% minus double (left & right) the margin */
+        border-bottom: 0.2rem solid var(--accent-colour);
+        padding: 0.4rem 1.2rem;
+        list-style: decimal;
+        margin: 0.8rem;
+    }
 
 /* Media Queries for smaller viewports - TODO: check breakpoint size */
 
 @media screen and (max-width: 480px) { 
-    li {
+    
+    /* Sets vertical margins to 0 to allow whole quiz to fit without needing to scroll */
+    h1, .top {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+
+     /* Sets more space between selectable answer list and stack column */
+    #answers li {
         width: 100%;
-        margin: 0.8rem 0;
+        margin: 1.2rem 0;
     }
+    /* Makes button larger relatively */
     button, input {
-        width: 50%;
+        width: 66%;
     }
+
 }
