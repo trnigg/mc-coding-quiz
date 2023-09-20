@@ -219,7 +219,6 @@ footer p {
     }
 
 /* Media Queries for smaller viewports - TODO: check breakpoint size */
-
 @media screen and (max-width: 480px) {   
     /* Sets vertical margins to 0 to allow whole quiz to fit without needing to scroll */
     h1, .top {
@@ -237,6 +236,7 @@ footer p {
     }
 }
 
+/* Media Query to target touch-devices and override hover states */
 @media (hover: none) {
     #answers li {
         background-color: var(--button-colour);    
