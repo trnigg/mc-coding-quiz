@@ -95,14 +95,8 @@ button, .button {
     border: 0.2rem solid var(--accent-colour);
     border-radius: 1.6rem;
     margin-top: 2.4rem;
+    color: var(--secondary-colour);
     background-color: var(--button-colour);
-}
-
-button:hover, .button:hover {
-    border-color: var(--accent-colour);
-    color: var(--accent-colour);
-    background-color: var(--secondary-colour);
-    cursor: pointer;
 }
 
 .button {
@@ -127,19 +121,20 @@ button:hover, .button:hover {
     margin: 0.8rem;
     text-align: center;
     border-radius: 1.6rem;
+    color: var(--secondary-colour);
     background-color: var(--button-colour);
     /* TODO ifTime: Set margin only between list items - maybe use grid instead of flex */
     /* TODO ifTime: style background colour of li same as button default */
 }
 
-#answers li:hover {
+button:hover, .button:hover, #answers li:hover {
     border-color: var(--accent-colour);
     color: var(--accent-colour);
     background-color: var(--secondary-colour);
     cursor: pointer;
 }
 
-#answers li:active {
+button:active, .button:active, #answers li:active {
     border-color: var(--secondary-colour);
     color: var(--secondary-colour);
     background-color: var(--main-colour);
@@ -224,15 +219,12 @@ footer p {
     }
 
 /* Media Queries for smaller viewports - TODO: check breakpoint size */
-
-@media screen and (max-width: 480px) { 
-    
+@media screen and (max-width: 480px) {   
     /* Sets vertical margins to 0 to allow whole quiz to fit without needing to scroll */
     h1, .top {
         margin-bottom: 0;
         margin-top: 0;
     }
-
      /* Sets more space between selectable answer list and stack column */
     #answers li {
         width: 100%;
@@ -242,5 +234,11 @@ footer p {
     button, .button, input {
         width: 66%;
     }
+}
 
+/* Media Query to target touch-devices and override hover states */
+@media (hover: none) {
+    #answers li {
+        background-color: var(--button-colour);    
+    }
 }
