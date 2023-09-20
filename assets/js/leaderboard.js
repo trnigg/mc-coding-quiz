@@ -24,7 +24,11 @@ showScores();
 
 // adds feature to reset button allowing scores to be wiped
 resetScoresButton.addEventListener("click", function(){
-    localStorage.removeItem("userScores"); //removes from local storage
-    alert("Scores have been reset."); 
-    leaderboardListElement.innerHTML = ""; //removes from list "on-screen", otherwise changes to local storage only availabnle on refresh
+   if (confirm("Are you sure you want to reset scores?")){
+        localStorage.removeItem("userScores"); //removes from local storage
+        leaderboardListElement.innerHTML = ""; //removes from list "on-screen", otherwise changes to local storage only availabnle on refresh
+        alert("Scores have been reset."); 
+    } else {
+        return;
+    }
 });

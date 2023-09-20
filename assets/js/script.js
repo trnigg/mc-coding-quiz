@@ -101,7 +101,6 @@ function startQuiz(){
 // Listen for a click event on start button to trigger the above
 startButton.addEventListener("click", function() {
     startQuiz();
-
 });
 
 // Handles user choice and assess for right/wrong, display corrensponding messages and incur time-penalty
@@ -171,4 +170,4 @@ function saveScore(){
 submitButton.addEventListener('click', function (event) {
     event.preventDefault();
     saveScore();
-  });
+});
